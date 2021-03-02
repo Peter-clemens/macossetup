@@ -1,0 +1,97 @@
+---
+- hosts: macbook
+  tasks:
+
+  - name: install homebrew packages
+    homebrew:
+      name: "{{ item }}"
+      state: present
+    loop: 
+      - autoconf
+      - automake
+      - bitwarden
+      - bash
+      - boost
+      - clang-format
+      - cmake
+      - coreutils
+      - dos2unix
+      - fping
+      - gnupg
+      - go
+      - htop
+      - p7zip
+      - pbzip2
+      - pcre
+      - pigz
+      - tmux
+      - vim
+      - w3m
+      - wget
+      - zsh
+      - zsh-syntax-highlighting
+      - node
+      - npm
+      - docker-machine-driver-hyperkit
+      - cowsay
+      - angular-cli
+      - kubernetes-cli
+      - kubernetes-helm
+      - redis
+      - tree
+      - jq
+      - yarn
+
+
+  #The below will fail if you installed any of the programs outside of brew
+  - name: install homebrew casks
+    homebrew_cask:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - docker
+      - discord
+      - firefox
+      - chrome
+      - fantasy-grounds
+      - steam
+      - iterm2
+      - macpass
+      - postman
+      - visual-studio-code
+      - wireshark
+    ignore_errors: true
+
+  - name: Disable Creation of .DS_Store
+    shell: "defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true"
+
+  - name: create needed directories
+    file:
+      path: "{{ item }}"
+      state: directory
+      mode: "0700"
+    loop:
+      - "~/Library/KeyBindings"
+      - "{{ certificate_dir }}"
+
+  - name: Map Home and End Keys
+    template:
+      backup: true
+      dest: "~/Library/KeyBindings/DefaultKeyBinding.dict"
+      src: "templates/keyBindings"
+
+  - name: Find brew path
+    shell: brew --prefix
+    register: brew_path
+
+  - name: Deploy Updated Profiles
+    template:
+      backup: true
+      dest: "~/.{{ item }}rc"
+      src: "templates/{{ item }}_profile"
+    loop:
+      - "zsh"
+      - "bash"
+
+  - name: Setup Oh My Zsh
+    shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
