@@ -308,21 +308,3 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   e.g.: hdiutil create -size 10m 10MB.dmg
 #   the above create files that are almost all zeros - if random bytes are desired
 #   then use: ~/Dev/Perl/randBytes 1048576 > 10MB.dat
-
-# Set Java home to Java 8
-# alias setJava8='export JAVA_HOME=`/usr/libexec/java_home -v 1.8`'
-
-#Alias for quickly setting Java11
-#alias setJava11='export JAVA_HOME=`/usr/libexec/java_home -v 11`'
-# alias java11='/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home/bin/java'
-
-#Alias for quickly setting Java12
-#alias setJava12='export JAVA_HOME=`/usr/libexec/java_home -v 12.0.1`'
-# alias java12='/Library/Java/JavaVirtualMachines/openjdk-12.0.1.jdk/Contents/Home/bin/java'
-
-#   Application shortcuts
-#alias chrome="/usr/bin/open -a '/Applications/Google Chrome.app'"  #Open Google Chrome
-#alias code="/Applications/VisualStudioCode.app/Contents/Resources/app/bin/code" #Opens Visual Studio Code. Specify directory after keyword to open Visual Studio Code with that directory.
-
-# Setup For NPM
-#export NODE_EXTRA_CA_CERTS={{ certifcate_bundle }}
