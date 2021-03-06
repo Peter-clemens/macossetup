@@ -2,66 +2,68 @@
 - hosts: macbook
   tasks:
 
-  # - name: install homebrew packages
-  #   homebrew:
-  #     name: "{{ item }}"
-  #     state: present
-  #   loop: 
-  #     - autoconf
-  #     - automake
-  #     - bitwarden
-  #     - bash
-  #     - boost
-  #     - clang-format
-  #     - cmake
-  #     - coreutils
-  #     - dos2unix
-  #     - fping
-  #     - gnupg
-  #     - go
-  #     - htop
-  #     - p7zip
-  #     - pbzip2
-  #     - pcre
-  #     - pigz
-  #     - tmux
-  #     - vim
-  #     - w3m
-  #     - wget
-  #     - zsh
-  #     - zsh-syntax-highlighting
-  #     - node
-  #     - npm
-  #     - docker-machine-driver-hyperkit
-  #     - cowsay
-  #     - angular-cli
-  #     - kubernetes-cli
-  #     - kubernetes-helm
-  #     - redis
-  #     - tree
-  #     - jq
-  #     - yarn
-  #   ignore_errors: true
+  - name: install homebrew packages
+    homebrew:
+      name: "{{ item }}"
+      state: present
+    loop: 
+      - autoconf
+      - automake
+      - bitwarden
+      - bash
+      - boost
+      - clang-format
+      - cmake
+      - coreutils
+      - dos2unix
+      - fping
+      - gnupg
+      - go
+      - htop
+      - p7zip
+      - pbzip2
+      - pcre
+      - pigz
+      - tmux
+      - vim
+      - w3m
+      - wget
+      - zsh
+      - zsh-syntax-highlighting
+      - node
+      - npm
+      - docker-machine-driver-hyperkit
+      - cowsay
+      - angular-cli
+      - kubernetes-cli
+      - kubernetes-helm
+      - redis
+      - tree
+      - jq
+      - yarn
+    ignore_errors: true
 
-  #The below will fail if you installed any of the programs outside of brew
-  # - name: install homebrew casks
-  #   homebrew_cask:
-  #     name: "{{ item }}"
-  #     state: present
-  #   loop:
-  #     - docker
-  #     - discord
-  #     - firefox
-  #     - google-chrome
-  #     - fantasy-grounds
-  #     - steam
-  #     - iterm2
-  #     - macpass
-  #     - postman
-  #     - visual-studio-code
-  #     - wireshark
-  #     - flux
-  #   ignore_errors: true
+  # The below will fail if you installed any of the programs outside of brew
+  - name: install homebrew casks
+    homebrew_cask:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - docker
+      - discord
+      - firefox
+      - google-chrome
+      - mysqlworkbench
+      - microsoft-office
+      - fantasy-grounds
+      - steam
+      - iterm2
+      - macpass
+      - postman
+      - visual-studio-code
+      - wireshark
+      - flux
+    ignore_errors: true
 
   - name: Disable Creation of .DS_Store
     shell: "defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true"
@@ -103,13 +105,13 @@
       url: https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme
       dest: "~/.oh-my-zsh/custom/themes/bullet-train.zsh-theme"
 
-  # - name: Setup Fonts
-  #   ansible.builtin.copy:
-  #     src: fonts/*.ttf
-  #     dest: "~/Library/fonts/"
-  #     owner: pclemens
-  #     group: staff
-  #     mode: '0755'
+  - name: Setup Fonts
+    ansible.builtin.copy:
+      src: fonts/*.ttf
+      dest: "~/Library/fonts/"
+      owner: pclemens
+      group: staff
+      mode: '0755'
 
   - name: Get list of Fonts
     command: "find /Users/pclemens/GIT/macossetup/fonts -type f"
