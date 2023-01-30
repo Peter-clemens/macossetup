@@ -31,16 +31,10 @@
       - zsh
       - zsh-syntax-highlighting
       - node
-      - npm
-      - docker-machine-driver-hyperkit
-      - cowsay
-      - angular-cli
       - kubernetes-cli
       - kubernetes-helm
-      - redis
       - tree
       - jq
-      - yarn
     ignore_errors: true
 
   # The below will fail if you installed any of the programs outside of brew
@@ -49,19 +43,17 @@
       name: "{{ item }}"
       state: present
     loop:
-      - docker
       - discord
+      - darktable
+      - disk-inventory-x
       - firefox
+      - krita
+      - inkscape
       - google-chrome
-      - mysqlworkbench
-      - microsoft-office
-      - fantasy-grounds
+      - GIMP
       - steam
       - iterm2
-      - macpass
-      - postman
       - visual-studio-code
-      - wireshark
       - flux
     ignore_errors: true
 
@@ -107,29 +99,19 @@
 
   - name: Setup Fonts
     ansible.builtin.copy:
-      src: fonts/*.ttf
+      src: fonts/
       dest: "~/Library/fonts/"
       owner: pclemens
       group: staff
       mode: '0755'
 
-  - name: Get list of Fonts
-    command: "find /Users/pclemens/GIT/macossetup/fonts -type f"
-    register: files_to_copy
-
-  - name: debug
-    debug:
-      var: "{{ files_to_copy.stdout_lines }}"
-
-  - name: Setup Fonts
-    copy:
-      src: "{{ item }}" 
-      dest: "~/Library/fonts/"
+  - name: Setup iTerm Profile
+    ansible.builtin.copy:
+      src: PowerlineCompatible.json
+      dest: "~/Library/Application Support/iTerm2/DynamicProfiles/"
       owner: pclemens
       group: staff
-      mode: 0750
-    loop:
-    - "{{ files_to_copy.stdout_lines }}"
+      mode: '0755'
 
   - name: Install VS Code Extentions
     shell: code --install-extension {{ item }}
