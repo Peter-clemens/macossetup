@@ -107,7 +107,7 @@
 
   - name: Setup iTerm Profile
     ansible.builtin.copy:
-      src: PowerlineCompatible.json
+      src: Profiles.json
       dest: "~/Library/Application Support/iTerm2/DynamicProfiles/"
       owner: pclemens
       group: staff
